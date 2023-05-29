@@ -1,4 +1,4 @@
-from tello import Tello
+from utils.tello import Tello
 import signal
 
 global tello
