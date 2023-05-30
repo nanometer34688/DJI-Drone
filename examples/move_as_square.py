@@ -31,7 +31,7 @@ def move_as_square(height=70, width=100, length=100):
     tello.move_forward(length)
     tello.rotate_clockwise(90)
     tello.move_forward(width)
-    tello.rotate_counter_clockwise(90)
+    tello.rotate_clockwise(90)
     tello.move_forward(length)
     tello.rotate_clockwise(90)
     tello.move_forward(width)

@@ -2,7 +2,6 @@ import face_recognition
 import numpy as np
 import cv2
 import os
-print(os.getcwd())
 
 class FindFaces:
     def __init__(self) -> None:
@@ -13,15 +12,21 @@ class FindFaces:
         # Load a second sample picture and learn how to recognize it.
         biden_image = face_recognition.load_image_file("./examples/faces/biden.jpg")
         biden_face_encoding = face_recognition.face_encodings(biden_image)[0]
+
+        # Load a third sample picture and learn how to recognize it.
+        trump_image = face_recognition.load_image_file("./examples/faces/trump.jpg")
+        trump_face_encoding = face_recognition.face_encodings(trump_image)[0]
        
         # Create arrays of known face encodings and their names
         self.known_face_encodings = [
             obama_face_encoding,
-            biden_face_encoding
+            biden_face_encoding,
+            trump_face_encoding
         ]
         self.known_face_names = [
             "Barack Obama",
-            "Biden"
+            "Biden",
+            "Trump"
         ]
 
     def process_frame(self, frame):
