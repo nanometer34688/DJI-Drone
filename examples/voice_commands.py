@@ -1,19 +1,15 @@
-import pyttsx3
 import speech_recognition as sr
 import os
 
 import sys
 sys.path.append('./utils')
 from tello import Tello
+import mute_alsa
 
 take_off = ["start engine", "start engines", "take off", "takeoff"]
 land = ["land", "stop", "down"]
 cmd_360 = ["three sixty", "360", "three hundred and sixty", "turn around", "spin"]
 
-
-def speak(audio):
-    engine.say(audio)
-    engine.runAndWait()
 
 def takeCommand():
      
