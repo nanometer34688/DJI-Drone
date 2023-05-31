@@ -37,10 +37,6 @@ def takeCommand():
      
     return query
 
-engine = pyttsx3.init('sapi5')
-voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)
-
 
 if __name__ == '__main__':
     clear = lambda: os.system('cls')
