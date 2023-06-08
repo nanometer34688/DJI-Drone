@@ -1,11 +1,11 @@
 import sys
 sys.path.append('./utils')
-from tello import Tello
+import tellopy
 import argparse
 
 import signal
 
-tello = Tello()
+drone = tellopy.Tello()
 
 def handler(signum, frame):
     """
@@ -14,8 +14,13 @@ def handler(signum, frame):
     Ending the program with a CTRL-C command will land the drone immediately 
     """
     print("CTL-C pressed. Attempting to land drone...")
-    tello.land()
+    drone.land()
     exit()
+
+def log_handler(event, sender, data, **args):
+    drone = sender
+    if event is drone.EVENT_FLIGHT_DATA:
+        print(data)
 
 def move_as_quad(altitude=70, width=100, length=100):
     """
@@ -28,15 +33,15 @@ def move_as_quad(altitude=70, width=100, length=100):
     Note: Drone should be pointed in the direction you want the drone to travel first. 
           It will fly down the length of the quadrilateral first
     """
-    tello.move_up(altitude)
-    tello.move_forward(length)
-    tello.rotate_clockwise(90)
-    tello.move_forward(width)
-    tello.rotate_clockwise(90)
-    tello.move_forward(length)
-    tello.rotate_clockwise(90)
-    tello.move_forward(width)
-    tello.rotate_clockwise(90)
+    drone.up(altitude)
+    drone.forward(length)
+    drone.clockwise(90)
+    drone.forward(width)
+    drone.clockwise(90)
+    drone.forward(length)
+    drone.clockwise(90)
+    drone.forward(width)
+    drone.clockwise(90)
 
 if __name__ == "__main__":
 
@@ -56,16 +61,18 @@ if __name__ == "__main__":
     # Set up signal handler to cut drone if needed
     signal.signal(signal.SIGINT, handler)
 
+    drone.subscribe(drone.EVENT_FLIGHT_DATA, log_handler)
     # Connect to drone
-    tello.connect()
+    drone.connect()
+    drone.wait_for_connection(10.0)
 
     # Drone take off
-    tello.takeoff()
+    drone.takeoff()
 
     # Main work
     move_as_quad(altitude=args.altitude, width=args.width, length=args.length)
 
     # Land drone
-    tello.land()
+    drone.land()
 
 
