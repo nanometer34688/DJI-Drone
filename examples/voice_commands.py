@@ -9,7 +9,7 @@ import mute_alsa
 take_off = ["start engine", "start engines", "take off", "takeoff"]
 land = ["land", "stop", "down"]
 cmd_360 = ["three sixty", "360", "three hundred and sixty", "turn around", "spin"]
-
+flip = ["flip"]
 
 def takeCommand():
      
@@ -65,3 +65,5 @@ if __name__ == '__main__':
         elif query in cmd_360:
             tello.rotate_clockwise(360)
             print("You spin me right round...")
+        elif query in flip:
+            tello.flip_back()
